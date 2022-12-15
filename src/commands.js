@@ -1,18 +1,17 @@
-import { createHashWorker } from './hash/main.js';
-import { invalidInputLogger, cwdLogger } from './helpers/loggers/index.js';
-import { ls, cat, add } from './fs/index.js';
-import { cd, up } from './process/index.js';
-import { OS } from './os/os.js';
+import { hash } from './commands/hash/hash.js';
+import { ls, cat, add, rm, rn } from './commands/fs/index.js';
+import { cd, up, exit } from './commands/process/index.js';
+import { os } from './commands/os/os.js';
+import { errorTypes } from './errorTypes/index.js';
 
 export const commands = async (command, payload) => {
     switch (command) {
         case 'ls': {
-            await ls();
+            await ls(payload);
             break;
         }
-        case 'exit': {
-            console.log(`Thank you for using File Manager, ${payload}, goodbye!`);
-            process.exit(0);
+        case '.exit': {
+            exit(payload);
             break;
         }
         case 'cd': {
@@ -24,7 +23,7 @@ export const commands = async (command, payload) => {
             break;
         }
         case 'hash': {
-            await createHashWorker(payload);
+            await hash(payload);
             break;
         }
         case 'add': {
@@ -32,16 +31,40 @@ export const commands = async (command, payload) => {
             break;
         }
         case 'os': {
-            OS(payload);
+            os(payload);
             break;
         }
         case 'cat': {
-            cat(payload);
+            await cat(payload);
             break;
         }
+        case 'rm': {
+            await rm(payload);
+            break;
+        }
+        // todo
+        // case 'rn': {
+        //     await rn(payload);
+        //     break;
+        // }
+        // case 'cp': {
+        //     await cp(payload)
+        //     break;
+        // }
+        // case 'mv': {
+        //     await mv(payload)
+        //     break;
+        // }
+        // case 'compress': {
+        //     await compress(payload)
+        //     break;
+        // }
+        // case 'decompress': {
+        //     await decompress(payload)
+        //     break;
+        // }
         default: {
-            invalidInputLogger();
-            cwdLogger();
+            throw new Error(errorTypes.invalidInput);
         }
     }
 };

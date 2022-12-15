@@ -1,15 +1,20 @@
 import * as readline from 'node:readline/promises';
 import { commands } from './commands.js';
 import { EOL, homedir } from 'node:os';
+import { user } from './entities/user.js';
 
-const initApp = async () => {
+const init = async () => {
     const userName = process.argv.find(arg => arg.startsWith('--username')).split('=')[1];
+    user.setUserName(userName);
 
     process.chdir(homedir());
-
     console.log(
         `Welcome to the File Manager, ${userName}!${EOL}You are currently in ${process.cwd()}`
     );
+};
+
+const fileManager = async () => {
+    await init();
 
     const rl = readline.createInterface({
         input: process.stdin,
@@ -19,18 +24,18 @@ const initApp = async () => {
     rl.on('line', async line => {
         const [command, ...payload] = line.trim().split(' ');
 
-        if (command === '.exit') await commands('exit', userName);
-
         try {
             await commands(command, payload);
-        } catch {
-            await commands('default');
+            console.log(process.cwd());
+        } catch (err) {
+            console.log(err.message);
+            console.log(process.cwd());
         }
     });
 
     rl.on('SIGINT', async () => {
-        await commands('exit', userName);
+        await commands('.exit');
     });
 };
 
-await initApp();
+await fileManager();
