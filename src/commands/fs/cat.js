@@ -1,29 +1,18 @@
 import { resolve } from 'node:path';
 import { createReadStream } from 'node:fs';
-import { errorTypes } from '../../errorTypes/index.js';
-
-const concatenate = path => {
-    return new Promise((resolve, reject) => {
-        const readStream = createReadStream(path, { encoding: 'utf-8' });
-
-        readStream.on('data', chunk => {
-            console.log(chunk);
-        });
-
-        readStream.on('error', reject);
-    });
-};
+import { ERROR_TYPES } from '../../constants/constants.js';
+import { parseArgs, isExist } from '../../utils/index.js';
 
 export const cat = async payload => {
-    if (!payload.length) throw new Error(errorTypes.invalidInput);
-
-    const filePath = payload.length > 1 ? payload.join(' ') : payload.toString();
-
+    const filePath = parseArgs(payload, 'cat');
     const resolvedFilePath = resolve(filePath);
 
-    try {
-        await concatenate(resolvedFilePath);
-    } catch (err) {
-        throw new Error(errorTypes.operationFailed);
-    }
+    const isFileExist = await isExist(resolvedFilePath);
+    if (!isFileExist) throw new Error(ERROR_TYPES.operationFailed);
+
+    const readStream = createReadStream(resolvedFilePath, 'utf-8');
+
+    readStream.on('data', data => {
+        console.log(data);
+    });
 };

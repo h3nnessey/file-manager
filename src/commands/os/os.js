@@ -1,10 +1,9 @@
 import { EOL, cpus, homedir, userInfo, arch } from 'node:os';
-import { errorTypes } from '../../errorTypes/index.js';
+import { ERROR_TYPES } from '../../constants/constants.js';
+import { parseArgs } from '../../utils/index.js';
 
 export const os = payload => {
-    if (!payload.length || payload.length > 1) throw new Error(errorTypes.invalidInput);
-
-    const arg = payload.toString();
+    const arg = parseArgs(payload, 'os');
 
     switch (arg) {
         case '--EOL': {
@@ -20,7 +19,7 @@ export const os = payload => {
                 console.log(homedir());
                 break;
             } catch {
-                throw new Error(errorTypes.operationFailed);
+                throw new Error(ERROR_TYPES.operationFailed);
             }
         }
         case '--username': {
@@ -28,7 +27,7 @@ export const os = payload => {
                 console.log(userInfo().username);
                 break;
             } catch {
-                throw new Error(errorTypes.operationFailed);
+                throw new Error(ERROR_TYPES.operationFailed);
             }
         }
         case '--architecture': {
@@ -36,7 +35,7 @@ export const os = payload => {
             break;
         }
         default: {
-            throw new Error(errorTypes.invalidInput);
+            throw new Error(ERROR_TYPES.invalidInput);
         }
     }
 };
