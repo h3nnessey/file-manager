@@ -16,7 +16,7 @@ export const ls = async (payload = []) => {
         const sortedContent = dirs.concat(files);
 
         console.table(sortedContent);
-    } catch (err) {
+    } catch {
         throw new Error(ERROR_TYPES.operationFailed);
     }
 };

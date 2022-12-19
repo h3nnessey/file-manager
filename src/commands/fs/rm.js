@@ -9,7 +9,7 @@ export const rm = async (payload = []) => {
 
     try {
         await remove(resolvedFilePath);
-    } catch (err) {
+    } catch {
         throw new Error(ERROR_TYPES.operationFailed);
     }
 };
