@@ -1,30 +1,36 @@
 import { ERROR_TYPES, REGEXP_MAP, ARGS_COUNT } from '../constants/constants.js';
 
-export const parseArgs = (args = [], cmd) => {
-    if (!args.length) throw Error(ERROR_TYPES.invalidInput);
-    args = args.join(' ');
+export const parseArgs = (payload = [], cmd) => {
+    if (!payload.length) throw Error(ERROR_TYPES.invalidInput);
 
-    const result = [];
+    let args = payload.join(' ').trim();
 
-    while (args.length !== 0) {
-        if (args[0] === '"' || args[0] === "'") {
-            const quote = args[0];
-            const regexp = REGEXP_MAP[quote];
-            const match = args.match(regexp)[0];
+    const parsedArgs = [];
+    const argsCount = ARGS_COUNT[cmd];
 
-            result.push(match.replaceAll(quote, ''));
-            args = args.replace(match, '').trim();
-        } else {
-            const arg = args.split(' ')[0];
+    try {
+        while (args.length !== 0) {
+            if (args[0] === '"' || args[0] === "'") {
+                const quote = args[0];
+                const regexp = REGEXP_MAP[quote];
+                const match = args.match(regexp)[0];
 
-            result.push(arg);
-            args = args.replace(arg, '').trim();
+                parsedArgs.push(match.replaceAll(quote, ''));
+                args = args.replace(match, '').trim();
+            } else {
+                const arg = args.split(' ')[0];
+
+                parsedArgs.push(arg);
+                args = args.replace(arg, '').trim();
+            }
         }
+    } catch {
+        throw new Error(ERROR_TYPES.operationFailed);
     }
 
-    if (result.length < ARGS_COUNT[cmd] || result.length > ARGS_COUNT[cmd]) {
+    if (parsedArgs.length < argsCount || parsedArgs.length > argsCount) {
         throw new Error(ERROR_TYPES.invalidInput);
     }
 
-    return result.length > 1 ? result : result.toString();
+    return parsedArgs.length > 1 ? parsedArgs : parsedArgs.toString();
 };

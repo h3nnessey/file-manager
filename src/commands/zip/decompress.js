@@ -5,7 +5,7 @@ import { resolve } from 'node:path';
 import { ERROR_TYPES } from '../../constants/constants.js';
 import { parseArgs, isExist } from '../../utils/index.js';
 
-export const decompress = async payload => {
+export const decompress = async (payload = []) => {
     const [archivePath, filePath] = parseArgs(payload, 'zip');
     const brotli = createBrotliDecompress();
 

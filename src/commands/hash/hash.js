@@ -3,7 +3,7 @@ import { ERROR_TYPES } from '../../constants/constants.js';
 import { parseArgs } from '../../utils/index.js';
 import { createHashWorker } from './createHashWorker.js';
 
-export const hash = async payload => {
+export const hash = async (payload = []) => {
     const filePath = parseArgs(payload, 'hash');
     const resolvedFilePath = resolve(filePath);
 

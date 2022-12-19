@@ -1,9 +1,9 @@
-import { hash } from './commands/hash/hash.js';
-import { ls, cat, add, rm, rn, cp, mv } from './commands/fs/index.js';
-import { cd, up, exit } from './commands/process/index.js';
-import { os } from './commands/os/os.js';
-import { compress, decompress } from './commands/zip/index.js';
-import { ERROR_TYPES } from './constants/constants.js';
+import { hash } from './hash/hash.js';
+import { ls, cat, add, rm, rn, cp, mv } from './fs/index.js';
+import { cd, up, exit } from './process/index.js';
+import { os } from './os/os.js';
+import { compress, decompress } from './zip/index.js';
+import { ERROR_TYPES } from '../constants/constants.js';
 
 export const commands = async (command, payload) => {
     switch (command) {

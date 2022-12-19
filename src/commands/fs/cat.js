@@ -3,7 +3,7 @@ import { createReadStream } from 'node:fs';
 import { ERROR_TYPES } from '../../constants/constants.js';
 import { parseArgs, isExist } from '../../utils/index.js';
 
-export const cat = async payload => {
+export const cat = async (payload = []) => {
     const filePath = parseArgs(payload, 'cat');
     const resolvedFilePath = resolve(filePath);
 

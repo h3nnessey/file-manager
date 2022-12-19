@@ -1,7 +1,7 @@
 import { readdir } from 'node:fs/promises';
 import { ERROR_TYPES } from '../../constants/constants.js';
 
-export const ls = async payload => {
+export const ls = async (payload = []) => {
     if (payload.length) throw new Error(ERROR_TYPES.invalidInput);
 
     try {

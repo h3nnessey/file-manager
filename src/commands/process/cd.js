@@ -2,7 +2,7 @@ import { resolve, sep } from 'node:path';
 import { ERROR_TYPES } from '../../constants/constants.js';
 import { parseArgs } from '../../utils/index.js';
 
-export const cd = payload => {
+export const cd = (payload = []) => {
     let dirPath = parseArgs(payload, 'cd');
 
     // c:, d: etc will work

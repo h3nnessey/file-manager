@@ -5,7 +5,7 @@ import { pipeline } from 'node:stream/promises';
 import { ERROR_TYPES } from '../../constants/constants.js';
 import { parseArgs, isExist } from '../../utils/index.js';
 
-export const mv = async payload => {
+export const mv = async (payload = []) => {
     const [filePath, copyDir] = parseArgs(payload, 'mv');
     const filename = basename(resolve(filePath));
     const newFilePath = join(resolve(copyDir), filename);
