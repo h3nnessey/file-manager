@@ -3,7 +3,7 @@ import { commands } from '../commands/commands.js';
 import { cwdLogger, errorLogger } from '../utils/index.js';
 
 export const createReadline = async () => {
-    const rl = await readline.createInterface({
+    const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout,
         prompt: '$ ',

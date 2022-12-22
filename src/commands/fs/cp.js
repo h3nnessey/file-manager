@@ -1,7 +1,7 @@
 import { basename, resolve, join } from 'node:path';
 import { pipeline } from 'node:stream/promises';
 import { ERROR_TYPES } from '../../constants/constants.js';
-import { parseArgs, isExist, createStreams } from '../../utils/index.js';
+import { parseArgs, createStreams, isExist } from '../../utils/index.js';
 
 export const cp = async (payload = []) => {
     const [filePath, copyDir] = parseArgs(payload, 'cp');
