@@ -11,13 +11,9 @@ export const cat = async (payload = []) => {
         await new Promise((resolve, reject) => {
             const readStream = createReadStream(resolvedFilePath, 'utf-8');
 
-            readStream.on('data', data => {
-                console.log(data);
-            });
-
+            readStream.on('data', console.log);
             readStream.on('end', resolve);
-
-            readStream.on('error', () => reject(ERROR_TYPES.operationFailed));
+            readStream.on('error', reject);
         });
     } catch {
         throw new Error(ERROR_TYPES.operationFailed);
