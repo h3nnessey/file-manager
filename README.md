@@ -3,12 +3,10 @@
 Start app from root dir of project: `npm run start -- --username=your_username`
 
 ## Before get started
-
 -   All paths with spaces must be enclosed in single or double quotes: `cd 'program files/somedir'`
 -   In some file operations if the file already exists it will cause an error (e.g. copying a file
     into a folder where such a file already exists )
 -   If you pass more or fewer arguments than needed it will cause an error
-
 ## Commands:
 
 1. Navigation & working directory
