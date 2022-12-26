@@ -1,0 +1,21 @@
+{
+    "name": "file-manager",
+    "version": "1.0.0",
+    "description": "CLI File Manager by using Node.js",
+    "main": "./src/index.js",
+    "type": "module",
+    "scripts": {
+        "start": "node ./src/app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/h3nnessey/file-manager.git"
+    },
+    "keywords": [],
+    "author": "h3nnessey",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/h3nnessey/file-manager/issues"
+    },
+    "homepage": "https://github.com/h3nnessey/file-manager#readme"
+}
